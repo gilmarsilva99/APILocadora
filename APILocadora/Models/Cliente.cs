@@ -12,5 +12,10 @@ namespace APILocadora.Models
         public string CPF { get; set; }
         public DateTime DataNascimento { get; set; }
         public List<Locacao> Locacoes { get; set; }
+
+        public Cliente()
+        {
+            Locacoes = new List<Locacao>();
+        }
     }
 }

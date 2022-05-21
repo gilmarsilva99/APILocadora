@@ -6,11 +6,10 @@ using System.Web;
 
 namespace APILocadora.Servicos
 {
-    public interface IServicoCliente
+    public interface IServicoLocacao
     {
-        Cliente ObterPor(int id);
-        List<Cliente> Listar();
-        Cliente Salvar(Cliente cliente);
+        Locacao ObterPor(int id);
         bool Excluir(int id);
+        List<Locacao> Listar();
     }
 }

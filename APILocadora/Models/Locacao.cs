@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using APILocadora.Models.Enum;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,20 @@ namespace APILocadora.Models
         public Cliente Cliente { get; set; }
 
         [JsonIgnore]
-        public Filme Filme { get; set; }
+        public Filme Filme { get; set; }       
+
+        
+        public void DefinirDevolução(TipoFilme tipo)
+        {
+            if (tipo == TipoFilme.Lancamento)
+            {
+                DataDevolucao = DataLocacao.AddDays(2);
+            }
+            else
+            {
+                DataDevolucao = DataLocacao.AddDays(3);
+            }
+        }
+
     }
 }

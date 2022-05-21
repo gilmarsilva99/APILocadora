@@ -24,9 +24,37 @@ namespace APILocadora.Infra.Repositorio
             return cliente;
         }
 
+        public Cliente ObterPor(string cpf)
+        {
+            Cliente cliente = _contexto.ClienteMaps.Where(a=>a.CPF == cpf).FirstOrDefault();
+
+            return cliente;
+        }
+
         public List<Cliente> Listar()
         {
             return _contexto.ClienteMaps.Include(o => o.Locacoes).OrderBy(a => a.Nome).ToList();
+        }
+
+        public void Salvar(Cliente cliente) 
+        {
+            if (cliente.Id == 0)
+            {
+                _contexto.ClienteMaps.Add(cliente);
+            }
+            else
+            {
+                _contexto.Entry(cliente).State = EntityState.Modified;
+            }
+
+            _contexto.SaveChanges();
+        }
+
+        public void Excluir(Cliente cliente)
+        {
+            _contexto.Entry(cliente).State = EntityState.Deleted;
+
+            _contexto.SaveChanges();
         }
     }
 }

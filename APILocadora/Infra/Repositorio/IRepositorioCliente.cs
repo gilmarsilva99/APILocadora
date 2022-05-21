@@ -10,5 +10,8 @@ namespace APILocadora.Infra.Repositorio
     {
         Cliente ObterPor(int id);
         List<Cliente> Listar();
+        Cliente ObterPor(string cpf);
+        void Salvar(Cliente cliente);
+        void Excluir(Cliente cliente);
     }
 }
