@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySqlConnector;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
@@ -14,25 +15,25 @@ namespace APILocadora.Infra.Data
         public string server_pass { get; set; }
         public string server_dbname { get; set; }
 
-        //private readonly IConfiguration _configutarion;
-
-        //public DbConn(IConfiguration configuration)
+        //public SqlConnection Connection
         //{
-        //    _configutarion = configuration;
-        //}
+        //    get { return new SqlConnection(GetConnection()); }
 
-        public SqlConnection Connection
+        //}
+        public MySqlConnection Connection
         {
-            get { return new SqlConnection(GetConnection()); }
+            get { return new MySqlConnection(cs); }
 
         }
+        public DbConn()
+        {
+            Connection.Open();
+        }
+
+        string cs = @"server=localhost;userid=root;password=123456;database=locadora";        
 
         private string GetConnection()
         {
-            //string conect = _configutarion.GetConnectionString("locadora");
-
-            //return conect;
-
             foreach (ConnectionStringSettings conn in ConfigurationManager.ConnectionStrings)
             {
                 if (conn.Name == "locadora")

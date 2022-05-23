@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using MySqlConnector;
 
 
 namespace APILocadora.Infra.Data
@@ -14,7 +15,8 @@ namespace APILocadora.Infra.Data
         public DataAccess() : base("locadora")
         {
             Database.SetInitializer<DataAccess>(null);
-        }
+        }       
+
         public virtual DbSet<Cliente> ClienteMaps { get; set; }
         public virtual DbSet<Filme> FilmeMaps { get; set; }
         public virtual DbSet<Locacao> LocacaoMaps { get; set; }
