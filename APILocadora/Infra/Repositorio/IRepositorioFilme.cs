@@ -13,6 +13,9 @@ namespace APILocadora.Infra.Repositorio
         List<Filme> Listar();
         void Salvar(Filme filme);
         void Excluir(Filme filme);
-        Filme ObterPor(string titulo, TipoFilme tipo);
+        bool JaExiste(string titulo, int classificacaoIndicativa);
+        List<Filme> FilmesNuncaAlugados();
+        List<Filme> CincoFilmesMaisAlugadosNoAno();
+        List<Filme> TresMenosAlugadosUltimaSemana();
     }
 }

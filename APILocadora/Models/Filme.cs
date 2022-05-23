@@ -13,5 +13,10 @@ namespace APILocadora.Models
         public int ClassificacaoIndicativa { get; set; }
         public TipoFilme Lancamento { get; set; }
         public List<Locacao> Locacoes { get; set; }
+
+        public Filme()
+        {
+            Locacoes = new List<Locacao>();
+        }
     }
 }

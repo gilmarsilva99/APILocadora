@@ -32,6 +32,11 @@ namespace APILocadora.Servicos
 
             if (filmeEncontrado == null)
             {
+                if (_repositorioFilme.JaExiste(filme.Titulo, filme.ClassificacaoIndicativa))
+                {
+                    return null;
+                }
+
                 Filme novoFilme = new Filme()
                 {
                     Id = 0,
@@ -42,7 +47,7 @@ namespace APILocadora.Servicos
 
                 _repositorioFilme.Salvar(novoFilme);
 
-                return _repositorioFilme.ObterPor(novoFilme.Titulo, novoFilme.Lancamento);
+                return _repositorioFilme.ObterPor(novoFilme.Id);
             }
             else
             {

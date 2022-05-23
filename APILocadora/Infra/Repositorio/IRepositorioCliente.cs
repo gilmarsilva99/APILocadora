@@ -13,5 +13,7 @@ namespace APILocadora.Infra.Repositorio
         Cliente ObterPor(string cpf);
         void Salvar(Cliente cliente);
         void Excluir(Cliente cliente);
+        List<Cliente> ClientesEmAtrasoDevolucao();
+        List<Cliente> SegundoClienteMaisALugou();
     }
 }

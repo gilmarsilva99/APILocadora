@@ -11,5 +11,6 @@ namespace APILocadora.Servicos
         Locacao ObterPor(int id);
         bool Excluir(int id);
         List<Locacao> Listar();
+        Locacao Salvar(Locacao locacao);
     }
 }

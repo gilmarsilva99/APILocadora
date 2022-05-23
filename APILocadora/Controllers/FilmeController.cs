@@ -28,7 +28,7 @@ namespace APILocadora.Controllers
 
         [HttpGet]
 
-        [Route("api/v1/Filme/listar")]
+        [Route("api/v1/filme/listar")]
         public IHttpActionResult Listar()
         {
             WsResposta wsResposta = new WsResposta();
@@ -58,7 +58,7 @@ namespace APILocadora.Controllers
 
         [HttpPost]
 
-        [Route("api/v1/Filme/salvar")]
+        [Route("api/v1/filme/salvar")]
         public IHttpActionResult Salvar([FromBody] Filme Filme)
         {
             WsResposta wsResposta = new WsResposta();
@@ -69,7 +69,7 @@ namespace APILocadora.Controllers
             {
                 if (FilmesResult == null)
                 {
-                    wsResposta.MensagemErro = "Erro ao criar Filme.";
+                    wsResposta.MensagemErro = "Filme já cadastrado.";
                     wsResposta.Codigo = Constantes.EnumWsCodigo.ERRO;
                 }
                 else
@@ -89,7 +89,7 @@ namespace APILocadora.Controllers
 
         [HttpPost]
 
-        [Route("api/v1/Filme/excluir")]
+        [Route("api/v1/filme/excluir")]
         public IHttpActionResult Excluir(int id)
         {
             WsResposta wsResposta = new WsResposta();

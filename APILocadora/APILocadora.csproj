@@ -164,6 +164,8 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\FilmeController.cs" />
+    <Compile Include="Controllers\LocacaoController.cs" />
+    <Compile Include="Controllers\RelatorioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -187,9 +189,11 @@
     <Compile Include="Servicos\IServicoCliente.cs" />
     <Compile Include="Servicos\IServicoFilme.cs" />
     <Compile Include="Servicos\IServicoLocacao.cs" />
+    <Compile Include="Servicos\IServicoRelatorio.cs" />
     <Compile Include="Servicos\ServicoCliente.cs" />
     <Compile Include="Servicos\ServicoFilme.cs" />
     <Compile Include="Servicos\ServicoLocacao.cs" />
+    <Compile Include="Servicos\ServicoRelatorio.cs" />
     <Compile Include="Utilitarios\Constantes.cs" />
     <Compile Include="Utilitarios\JsonUtils.cs" />
     <Compile Include="Utilitarios\WsResposta.cs" />

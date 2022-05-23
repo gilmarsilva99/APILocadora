@@ -56,5 +56,25 @@ namespace APILocadora.Infra.Repositorio
 
             _contexto.SaveChanges();
         }
+
+        public List<Cliente> ClientesEmAtrasoDevolucao()
+        {
+            return _contexto.LocacaoMaps.Include(a => a.Cliente).Where(a => a.DataDevolucao < DateTime.Now).Select(o => o.Cliente).Distinct().ToList();
+        }
+
+        public List<Cliente> SegundoClienteMaisALugou()
+        {
+            string query = @"select C.Id, c.Nome, C.CPF, c.DataNascimento, COUNT(l.Id_Cliente) QtdLocacoes
+                            from cliente C
+	                            left join Locacao L on C.Id = L.Id_Cliente
+                            Group by C.Id, c.Nome, C.CPF, c.DataNascimento
+                            order by QtdLocacoes desc";
+
+            List<Cliente> result = _contexto.Database.SqlQuery<Cliente>(query).ToList();
+
+            result = result.Skip(1).Take(1).ToList();
+
+            return result;
+        }
     }
 }

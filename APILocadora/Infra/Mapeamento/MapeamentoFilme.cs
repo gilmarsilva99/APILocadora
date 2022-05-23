@@ -26,7 +26,8 @@ namespace APILocadora.Infra.Mapeamento
                .HasColumnType("int");
             Property(p => p.Lancamento)
                .IsRequired();
-             
+               
+
 
             HasMany(p => p.Locacoes)
                .WithRequired(c => c.Filme)

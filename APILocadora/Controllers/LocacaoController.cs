@@ -11,35 +11,35 @@ using static APILocadora.Utilitarios.Constantes;
 
 namespace APILocadora.Controllers
 {
-    public class ClienteController : ApiController
+    public class LocacaoController : ApiController
     {
-        private readonly IServicoCliente _servico;
+        private readonly IServicoLocacao _servico;
 
-        public ClienteController(IServicoCliente servico)
+        public LocacaoController(IServicoLocacao servico)
         {
             _servico = servico;
             
         }
 
-        public ClienteController()
+        public LocacaoController()
         {
-            _servico = new ServicoCliente(new RepositorioCliente());
+            _servico = new ServicoLocacao(new RepositorioLocacao(), new RepositorioCliente(), new RepositorioFilme());
         }
 
         [HttpGet]
 
-        [Route("api/v1/cliente/listar")]
+        [Route("api/v1/locacao/listar")]
         public IHttpActionResult Listar()
         {
             WsResposta wsResposta = new WsResposta();
 
-            List<Cliente> lista = _servico.Listar();
+            List<Locacao> lista = _servico.Listar();
 
             try
             {
                 if (lista == null)
                 {
-                    wsResposta.MensagemErro = "Nenhum cliente encontrado.";
+                    wsResposta.MensagemErro = "Nenhum locacao encontrado.";
                     wsResposta.Codigo = Constantes.EnumWsCodigo.ERRO;
                 }
                 else
@@ -58,23 +58,23 @@ namespace APILocadora.Controllers
 
         [HttpPost]
 
-        [Route("api/v1/cliente/salvar")]
-        public IHttpActionResult Salvar([FromBody] Cliente cliente)
+        [Route("api/v1/locacao/salvar")]
+        public IHttpActionResult Salvar([FromBody] Locacao locacao)
         {
-            WsResposta wsResposta = new WsResposta();           
+            WsResposta wsResposta = new WsResposta();
 
-            Cliente clientesResult = _servico.Salvar(cliente);
+            Locacao locacaosResult = _servico.Salvar(locacao);
 
             try
             {
-                if (clientesResult == null)
+                if (locacaosResult == null)
                 {
-                    wsResposta.MensagemErro = "Erro ao criar cliente.";
+                    wsResposta.MensagemErro = "Erro ao criar locacao.";
                     wsResposta.Codigo = Constantes.EnumWsCodigo.ERRO;
                 }
                 else
                 {
-                    wsResposta.Conteudo = JsonUtils.Serializar(clientesResult);
+                    wsResposta.Conteudo = JsonUtils.Serializar(locacaosResult);
                 }
             }
             catch (Exception ex)
@@ -89,35 +89,33 @@ namespace APILocadora.Controllers
 
         [HttpPost]
 
-        [Route("api/v1/cliente/excluir")]
+        [Route("api/v1/locacao/excluir")]
         public IHttpActionResult Excluir(int id)
         {
             WsResposta wsResposta = new WsResposta();
 
-            bool clientesResult = _servico.Excluir(id);
+            bool locacaosResult = _servico.Excluir(id);
 
             try
             {
-                if (clientesResult == false)
+                if (locacaosResult == false)
                 {
-                    wsResposta.MensagemErro = "Erro ao excluir cliente.";
+                    wsResposta.MensagemErro = "Erro ao excluir locacao.";
                     wsResposta.Codigo = Constantes.EnumWsCodigo.ERRO;
                 }
                 else
                 {
-                    wsResposta.Conteudo = JsonUtils.Serializar(clientesResult);
-                    wsResposta.Mensagem = "Cliente excluído com sucesso.";
+                    wsResposta.Conteudo = JsonUtils.Serializar(locacaosResult);
+                    wsResposta.Mensagem = "locacao excluído com sucesso.";
                 }
             }
             catch (Exception ex)
             {
                 wsResposta.Codigo = EnumWsCodigo.EXCECAO;
-                wsResposta.Mensagem = "Erro ao excluir cliente";
+                wsResposta.Mensagem = "Erro ao excluir locacao";
                 wsResposta.MensagemErro = ex.ToString();
             }
             return Ok(wsResposta);
         }
-
-
     }
 }

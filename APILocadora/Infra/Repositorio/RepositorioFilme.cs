@@ -23,9 +23,16 @@ namespace APILocadora.Infra.Repositorio
             return _contexto.FilmeMaps.Find(id);
         }
 
-        public Filme ObterPor(string titulo, TipoFilme tipo)
+        public bool JaExiste(string titulo, int classificacaoIndicativa)
         {
-            return _contexto.FilmeMaps.Where(a=>a.Titulo == titulo && a.Lancamento == tipo).FirstOrDefault();
+            Filme filmeEncontrado = _contexto.FilmeMaps.Where(a => a.Titulo == titulo && a.ClassificacaoIndicativa == classificacaoIndicativa).FirstOrDefault();
+
+            if (filmeEncontrado != null)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public List<Filme> Listar()
@@ -52,6 +59,38 @@ namespace APILocadora.Infra.Repositorio
             _contexto.Entry(filme).State = EntityState.Deleted;
 
             _contexto.SaveChanges();
+        }
+
+        public List<Filme> FilmesNuncaAlugados()
+        {
+            return _contexto.FilmeMaps.Include(a => a.Locacoes).Where(a => a.Locacoes.Count() == 0).ToList();
+        }
+
+        public List<Filme> CincoFilmesMaisAlugadosNoAno() 
+        {
+            string query = @"Select top(5) f.Id, F.Titulo, F.Lancamento, F.ClassificacaoIndicativa, COUNT(L.Id_Filme) QtdLocacoes
+                                from Filme F
+	                                left join Locacao L ON F.Id = L.Id_Filme
+                                where YEAR(L.DataLocacao) = YEAR(GETDATE())
+                                GROUP BY 
+                                f.Id, F.Titulo, F.Lancamento, F.ClassificacaoIndicativa
+                                order by QtdLocacoes
+
+                                    ";
+            return _contexto.Database.SqlQuery<Filme>(query).ToList();       
+        }
+
+        public List<Filme> TresMenosAlugadosUltimaSemana()
+        {
+            string query = @"Select top(3) f.Id, F.Titulo, F.Lancamento, F.ClassificacaoIndicativa, COUNT(L.Id_Filme) QtdLocacoes
+                                from Filme F
+	                                left join Locacao L ON F.Id = L.Id_Filme
+                                where DATEDIFF(DAY, L.DataLocacao, GETDATE()) <= 7
+                                GROUP BY 
+                                f.Id, F.Titulo, F.Lancamento, F.ClassificacaoIndicativa
+                                order by QtdLocacoes";           
+
+            return _contexto.Database.SqlQuery<Filme>(query).ToList();
         }
     }
 }
