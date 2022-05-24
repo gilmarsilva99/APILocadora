@@ -220,8 +220,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infra\Data\DataAccess.cs" />
-    <Compile Include="Infra\Data\DbConn.cs" />
-    <Compile Include="Infra\Data\IDbConn.cs" />
     <Compile Include="Infra\Mapeamento\MapeamentoCliente.cs" />
     <Compile Include="Infra\Mapeamento\MapeamentoFilme.cs" />
     <Compile Include="Infra\Mapeamento\MapeamentoLocacao.cs" />
